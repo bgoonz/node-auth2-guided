@@ -1,14 +1,15 @@
 exports.up = function (knex) {
   return knex.schema
-    .createTable("roles", tbl => {
+    .createTable("roles", (tbl) => {
       tbl.increments();
       tbl.string("name", 128).notNullable().unique();
     })
-    .createTable("users", tbl => {
+    .createTable("users", (tbl) => {
       tbl.increments();
       tbl.string("username", 128).notNullable().unique();
       tbl.string("password", 256).notNullable();
-      tbl.integer("role")
+      tbl
+        .integer("role")
         .unsigned()
         .references("roles.id")
         .onDelete("RESTRICT")
@@ -18,7 +19,5 @@ exports.up = function (knex) {
 };
 
 exports.down = function (knex) {
-  return knex.schema
-    .dropTableIfExists("users")
-    .dropTableIfExists("roles");
+  return knex.schema.dropTableIfExists("users").dropTableIfExists("roles");
 };
