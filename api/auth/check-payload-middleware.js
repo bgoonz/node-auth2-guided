@@ -7,7 +7,8 @@ module.exports = (req, res, next) => {
   } else {
     next({
       status: 422,
-      message: 'Please provide username and password and the password shoud be alphanumeric',
+      message:
+        "Please provide username and password and the password shoud be alphanumeric",
     });
   }
 };
